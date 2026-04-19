@@ -8,6 +8,7 @@ import {
   toggleSeen,
   toggleHidden,
 } from "./storage.js";
+import { CONFIG } from "../config.js";
 
 const $ = (sel) => document.querySelector(sel);
 
