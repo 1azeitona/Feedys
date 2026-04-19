@@ -115,7 +115,15 @@ function bindGlobalUI() {
     updateSetupStatuses();
   });
 
-  $("#yt-connect").addEventListener("click", () => startLogin("youtube"));
+  $("#yt-connect").addEventListener("click", async () => {
+    try {
+      await startLogin("youtube");
+      toast("Connected youtube");
+      updateSetupStatuses();
+    } catch (e) {
+      toast("YouTube: " + e.message);
+    }
+  });
   $("#sp-connect").addEventListener("click", () => startLogin("spotify"));
   $("#yt-disconnect").addEventListener("click", () => { logout("youtube"); updateSetupStatuses(); });
   $("#sp-disconnect").addEventListener("click", () => { logout("spotify"); updateSetupStatuses(); });
