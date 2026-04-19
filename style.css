@@ -118,7 +118,24 @@ a:hover { color: var(--ink); border-bottom-color: var(--ink); }
 }
 .tab[aria-selected="true"] .tab-count { color: var(--accent); background: rgba(213, 138, 58, 0.12); }
 
-.topbar-actions { display: flex; gap: 4px; }
+.topbar-actions { display: flex; align-items: center; gap: 4px; }
+
+.sync-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--ink-mute);
+  opacity: 0;
+  flex-shrink: 0;
+  transition: background .3s, opacity .3s;
+  margin-right: 4px;
+}
+.sync-dot[data-status="syncing"] { opacity: 1; background: var(--accent); animation: sync-pulse 1s ease-in-out infinite; }
+.sync-dot[data-status="ok"]      { opacity: 1; background: var(--sp); }
+.sync-dot[data-status="error"]   { opacity: 1; background: var(--danger); }
+
+@keyframes sync-pulse { 0%, 100% { opacity: 1; } 50% { opacity: .25; } }
+
 .icon-btn {
   width: 36px;
   height: 36px;
