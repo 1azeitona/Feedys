@@ -10,6 +10,7 @@ export const CONFIG = {
   },
 
   daysToShow: 30,
+  hideShorts: true,
 
   gistFilename: "yt-spotify-feed-state.json",
   gistDescription: "yt-spotify-feed state (private)",
