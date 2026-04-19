@@ -244,7 +244,7 @@ export async function getAccessToken(provider) {
 
 // ----------------------------------------------------------------- API fetch helper
 
-export async function apiFetch(provider, url, init = {}) {
+export async function apiFetch(provider, url, init = {}, _retries = 3) {
   const token = await getAccessToken(provider);
   const res = await fetch(url, {
     ...init,
@@ -253,6 +253,11 @@ export async function apiFetch(provider, url, init = {}) {
   if (res.status === 401) {
     logout(provider);
     throw new Error(`${provider} auth expired; please reconnect`);
+  }
+  if (res.status === 429 && _retries > 0) {
+    const wait = parseInt(res.headers.get("Retry-After") || "3", 10) * 1000;
+    await new Promise((r) => setTimeout(r, wait));
+    return apiFetch(provider, url, init, _retries - 1);
   }
   if (!res.ok) {
     const text = await res.text();
