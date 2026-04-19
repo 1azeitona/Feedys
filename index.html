@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#0c0b09" />
+<title>Feed · YouTube + Spotify</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+  rel="stylesheet"
+/>
+<link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <h1 class="wordmark">
+        <span class="wordmark-a">Feed</span>
+        <span class="wordmark-sep">·</span>
+        <span class="wordmark-b">YouTube <em>+</em> Spotify</span>
+      </h1>
+      <nav class="tabs" role="tablist" aria-label="Source">
+        <button class="tab" data-tab="youtube" role="tab" aria-selected="true">
+          <span class="tab-label">YouTube</span>
+          <span class="tab-count" data-count="youtube">—</span>
+        </button>
+        <button class="tab" data-tab="spotify" role="tab" aria-selected="false">
+          <span class="tab-label">Spotify</span>
+          <span class="tab-count" data-count="spotify">—</span>
+        </button>
+      </nav>
+      <div class="topbar-actions">
+        <button class="icon-btn" id="refresh-btn" title="Refresh">↻</button>
+        <button class="icon-btn" id="settings-btn" title="Settings">⚙</button>
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- Setup screen (shown when not configured) -->
+      <section id="setup" class="setup hidden">
+        <div class="setup-inner">
+          <p class="eyebrow">First run</p>
+          <h2 class="setup-title">Let's connect the pieces.</h2>
+          <p class="setup-lede">
+            This app runs entirely in your browser. State syncs across devices through a private GitHub Gist. Nothing is sent to any server besides Google, Spotify, and GitHub.
+          </p>
+
+          <ol class="setup-steps">
+            <li class="setup-step" data-step="gist">
+              <div class="step-head">
+                <span class="step-num">01</span>
+                <h3 class="step-title">GitHub Personal Access Token</h3>
+                <span class="step-status" data-status="gist">pending</span>
+              </div>
+              <p class="step-desc">
+                Create a <em>classic</em> token with only the <code>gist</code> scope.
+                <a href="https://github.com/settings/tokens/new?scopes=gist&description=yt-spotify-feed" target="_blank" rel="noopener">Open GitHub ↗</a>
+              </p>
+              <div class="step-action">
+                <input type="password" id="pat-input" placeholder="ghp_…" autocomplete="off" />
+                <button class="btn" id="pat-save">Save token</button>
+              </div>
+            </li>
+
+            <li class="setup-step" data-step="youtube">
+              <div class="step-head">
+                <span class="step-num">02</span>
+                <h3 class="step-title">Connect YouTube</h3>
+                <span class="step-status" data-status="youtube">pending</span>
+              </div>
+              <p class="step-desc">Read-only access to your subscriptions.</p>
+              <div class="step-action">
+                <button class="btn" id="yt-connect">Connect YouTube</button>
+                <button class="btn btn-ghost hidden" id="yt-disconnect">Disconnect</button>
+              </div>
+            </li>
+
+            <li class="setup-step" data-step="spotify">
+              <div class="step-head">
+                <span class="step-num">03</span>
+                <h3 class="step-title">Connect Spotify</h3>
+                <span class="step-status" data-status="spotify">pending</span>
+              </div>
+              <p class="step-desc">Read-only access to your followed podcasts.</p>
+              <div class="step-action">
+                <button class="btn" id="sp-connect">Connect Spotify</button>
+                <button class="btn btn-ghost hidden" id="sp-disconnect">Disconnect</button>
+              </div>
+            </li>
+          </ol>
+
+          <div class="setup-foot">
+            <button class="btn btn-primary hidden" id="enter-app">Enter feed →</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Feed screen -->
+      <section id="feed" class="feed hidden">
+        <div class="feed-header">
+          <p class="eyebrow">Last 30 days</p>
+          <h2 class="feed-title" data-title="youtube">Recent uploads</h2>
+          <h2 class="feed-title hidden" data-title="spotify">Recent episodes</h2>
+          <p class="feed-meta" id="feed-meta">—</p>
+        </div>
+
+        <div class="feed-body">
+          <ul class="items" id="items-youtube" role="tabpanel"></ul>
+          <ul class="items hidden" id="items-spotify" role="tabpanel"></ul>
+        </div>
+
+        <div class="empty hidden" id="empty-state">
+          <p>Nothing new in this window.</p>
+          <button class="btn btn-ghost" id="refresh-empty">Refresh</button>
+        </div>
+      </section>
+
+      <!-- Loading overlay -->
+      <div id="loader" class="loader hidden">
+        <div class="loader-dot"></div>
+        <div class="loader-dot"></div>
+        <div class="loader-dot"></div>
+        <p class="loader-text" id="loader-text">Loading…</p>
+      </div>
+
+      <!-- Toast -->
+      <div id="toast" class="toast hidden" role="status"></div>
+    </main>
+
+    <footer class="footer">
+      <span class="footer-brand">Personal feed reader</span>
+      <span class="footer-sep">·</span>
+      <span class="footer-note">No tracking. No ads. Your data stays between you, Google, Spotify, and GitHub.</span>
+    </footer>
+  </div>
+
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
