@@ -32,7 +32,7 @@ async function listFollowedShows() {
 async function listRecentEpisodes(show, sinceDate) {
   // Spotify /shows/{id}/episodes is paginated, newest first.
   const items = [];
-  let url = `${API}/shows/${show.id}/episodes?limit=20&market=from_token`;
+  let url = `${API}/shows/${show.id}/episodes?limit=20`;
   let exhausted = false;
   while (url && !exhausted) {
     const data = await apiFetch("spotify", url);
