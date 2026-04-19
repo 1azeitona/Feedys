@@ -199,15 +199,20 @@ function scheduleSync() {
 }
 
 export async function syncNow() {
-  if (syncing) return;
+  if (syncing) { pendingSync = true; return; }
   syncing = true;
+  pendingSync = false;
+  syncCallbacks.onStart?.();
   try {
     const id = await findOrCreateGist();
     await writeGist(id, currentState);
+    syncCallbacks.onSuccess?.();
   } catch (e) {
     console.warn("Gist sync failed:", e.message);
+    syncCallbacks.onError?.(e);
   } finally {
     syncing = false;
+    if (pendingSync) { pendingSync = false; syncNow(); }
   }
 }
 
