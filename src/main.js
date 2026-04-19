@@ -34,6 +34,18 @@ const $ = (s) => document.querySelector(s);
 const feedCache = { youtube: [], spotify: [] };
 let activeTab = "youtube";
 
+// ----------------------------------------------------------------- Sync indicator
+function setSyncStatus(status) {
+  const el = document.getElementById("sync-dot");
+  if (el) el.dataset.status = status;
+}
+
+setSyncCallbacks({
+  onStart:   () => setSyncStatus("syncing"),
+  onSuccess: () => setSyncStatus("ok"),
+  onError:   (e) => { setSyncStatus("error"); toast("Sync failed — check your GitHub token"); console.warn(e); },
+});
+
 // ----------------------------------------------------------------- Bootstrap
 (async function bootstrap() {
   try {
