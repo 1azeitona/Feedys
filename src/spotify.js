@@ -75,7 +75,7 @@ export async function fetchSpotifyFeed({ onProgress } = {}) {
 
   const all = [];
   let i = 0;
-  const concurrency = 4;
+  const concurrency = 1;
   const queue = [...shows];
   async function worker() {
     while (queue.length) {
