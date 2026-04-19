@@ -77,6 +77,9 @@ a:hover { color: var(--ink); border-bottom-color: var(--ink); }
 
 .wordmark {
   margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-family: var(--f-display);
   font-weight: 300;
   font-size: clamp(18px, 2.2vw, 26px);
@@ -87,10 +90,8 @@ a:hover { color: var(--ink); border-bottom-color: var(--ink); }
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.wordmark-logo { height: 28px; width: 28px; object-fit: contain; border-radius: 6px; }
 .wordmark-a { color: var(--ink); font-style: italic; font-weight: 400; }
-.wordmark-sep { color: var(--ink-mute); margin: 0 0.4ch; }
-.wordmark-b { color: var(--ink-dim); font-size: 0.72em; font-family: var(--f-mono); letter-spacing: 0.02em; text-transform: uppercase; }
-.wordmark-b em { color: var(--accent); font-style: normal; padding: 0 0.15em; }
 
 .tabs { display: flex; gap: 2px; }
 .tab {
