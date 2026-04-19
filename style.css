@@ -90,7 +90,7 @@ a:hover { color: var(--ink); border-bottom-color: var(--ink); }
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.wordmark-logo { height: 28px; width: 28px; object-fit: contain; border-radius: 6px; }
+.wordmark-logo { height: 28px; width: 28px; min-width: 28px; max-width: 28px; object-fit: contain; border-radius: 6px; flex-shrink: 0; }
 .wordmark-a { color: var(--ink); font-style: italic; font-weight: 400; }
 
 .tabs { display: flex; gap: 2px; }
