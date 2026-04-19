@@ -14,6 +14,7 @@ import {
   setPat,
   loadState,
   syncNow,
+  setSyncCallbacks,
   resetAllLocal,
 } from "./storage.js";
 import { fetchYouTubeFeed } from "./youtube.js";
