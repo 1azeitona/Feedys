@@ -19,6 +19,10 @@ const EMPTY_STATE = {
 let currentState = null;
 let syncTimer = null;
 let syncing = false;
+let pendingSync = false;
+let syncCallbacks = {};
+
+export function setSyncCallbacks(cbs) { syncCallbacks = cbs || {}; }
 
 // ----------------------------------------------------------------- PAT
 export function setPat(pat) {
