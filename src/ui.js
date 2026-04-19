@@ -51,7 +51,12 @@ export function renderFeed(items, source) {
   const ul = $(`#items-${source}`);
   ul.innerHTML = "";
 
-  const visible = items.filter((it) => !isHidden(source, it.id));
+  const isShort = (it) => /#shorts\b/i.test(it.title || "");
+  const visible = items.filter(
+    (it) =>
+      !isHidden(source, it.id) &&
+      !(source === "youtube" && CONFIG.hideShorts && isShort(it))
+  );
   $(`#feed-meta`).textContent = buildMeta(items, visible, source);
 
   if (!visible.length) {
